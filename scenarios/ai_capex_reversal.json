@@ -1,0 +1,8 @@
+{
+  "name": "AI infrastructure capex reversal (hypothetical)",
+  "kind": "factor",
+  "factor_shocks": {"Mkt-RF": -0.15, "Mom": -0.20, "HML": 0.06, "Rates": 0.04},
+  "asset_shocks": {"BusEq": -0.40, "Chips": -0.50, "Hardw": -0.38, "Softw": -0.30, "ElcEq": -0.30, "Mach": -0.18, "Util": -0.20, "Utils": -0.18, "Telcm": -0.12},
+  "description": "Hyperscalers cut data-centre spending: semiconductors, hardware, electrical equipment and power utilities reprice; crowded momentum winners unwind; value outperforms; a mild flight to Treasuries. Assets not named move with their factor betas.",
+  "tags": ["hypothetical", "technology", "crowding"]
+}

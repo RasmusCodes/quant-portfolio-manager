@@ -1,0 +1,8 @@
+{
+  "name": "2022-style inflation and rate shock (replay)",
+  "kind": "historical",
+  "start": "2022-01-01",
+  "end": "2022-10-31",
+  "description": "Actual returns January-October 2022: stocks and bonds fell together as the 10-year yield rose from 1.5% to 4.1%.",
+  "tags": ["historical", "rates", "inflation"]
+}

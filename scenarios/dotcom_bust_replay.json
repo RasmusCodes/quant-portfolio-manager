@@ -1,0 +1,8 @@
+{
+  "name": "Dot-com bust (replay)",
+  "kind": "historical",
+  "start": "2000-09-01",
+  "end": "2002-09-30",
+  "description": "Actual returns September 2000 - September 2002: technology lost about 80% while bonds rallied.",
+  "tags": ["historical", "technology"]
+}

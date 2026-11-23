@@ -1,0 +1,7 @@
+{
+  "name": "Bond sell-off (+150 bp, hypothetical)",
+  "kind": "factor",
+  "factor_shocks": {"Rates": -0.11, "Mkt-RF": -0.08, "HML": 0.04, "Mom": -0.03},
+  "description": "The 10-year yield rises about 150 bp (roughly -11% on a 10-year note), equities fall 8% and long-duration growth stocks lag value.",
+  "tags": ["hypothetical", "rates"]
+}

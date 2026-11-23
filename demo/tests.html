@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Engine parity tests</title>
+<style>body{font:14px system-ui,sans-serif;margin:24px}table{border-collapse:collapse}td,th{padding:4px 10px;border-bottom:1px solid #ddd;text-align:left}.ok{color:#157347}.bad{color:#b42318;font-weight:600}</style></head>
+<body>
+<h1>JavaScript engine vs Python outputs</h1>
+<p id="summary">running…</p>
+<table id="results"><thead><tr><th>Check</th><th>Max abs difference</th><th>Tolerance</th><th>Result</th></tr></thead><tbody></tbody></table>
+<script src="engine.js"></script>
+<script src="tests/fixtures.js"></script>
+<script>
+(async function () {
+  const E = QPM, fx = window.QPM_FIXTURES, rows = [];
+  const maxd = (a, b) => (a.length !== b.length ? Infinity : Math.max(...a.map((v, i) => Math.abs(v - b[i]))));
+  const check = (name, a, b, tol) => { const d = Array.isArray(a) ? maxd(a, b) : Math.abs(a - b); rows.push({ name, d, tol, ok: d <= tol }); };
+  fx.cases.forEach((c, k) => {
+    const base = { lower: 0, upper: 0.35, budget: 1 };
+    const cons = Object.assign({}, base, { groups: c.cons.groups, turnoverMax: c.cons.turnoverMax, wPrev: c.cons.wPrev });
+    const mv = E.meanVariance(c.mu, c.cov, 4, cons, c.names);
+    check(`case ${k}: mean-variance (groups${c.cons.turnoverMax ? ", turnover" : ""})`, mv.weights, c.mean_variance, 1e-6);
+    const ex = E.explain(mv, c.cov, c.names);
+    check(`case ${k}: explanation formula reproduces weights`, ex.rows.map((r) => r.weightFromFormula), c.weight_from_formula, 1e-6);
+    check(`case ${k}: minimum variance`, E.minVariance(c.cov, base, c.names).weights, c.min_variance, 1e-6);
+    check(`case ${k}: maximum Sharpe (homogenized QP)`, E.maxSharpe(c.mu, c.cov, base, c.names).weights, c.max_sharpe, 1e-6);
+    check(`case ${k}: equal risk contribution`, E.ercWeights(c.cov), c.erc, 1e-9);
+    check(`case ${k}: hierarchical risk parity`, E.hrpWeights(c.cov).w, c.hrp, 1e-9);
+    check(`case ${k}: Black-Litterman posterior mean`, E.blPosterior(c.cov, c.bl.w_mkt, c.bl.P, c.bl.Q, c.bl.conf, 0.05, 2.5).mu, c.bl.mu, 1e-9);
+    check(`case ${k}: efficient frontier volatilities`, E.efficientFrontier(c.mu, c.cov, base, c.names, 5).points.map((p) => p.vol), c.frontier_vol, 1e-6);
+  });
+  const lw = E.lwConstantCorrelation(fx.estimators.returns).cov;
+  check("Ledoit-Wolf constant correlation", lw.flat(), fx.estimators.lw_cc.flat(), 1e-12);
+  check("Bayes-Stein means", E.bayesStein(fx.estimators.returns).mu, fx.estimators.bayes_stein, 1e-12);
+  const v = E.varReport(fx.var.series, 0.99);
+  check("historical VaR 99%", v.historical, fx.var.historical, 1e-12);
+  check("historical ES 99%", v.historicalES, fx.var.es, 1e-12);
+  check("normal VaR 99%", v.normal, fx.var.normal, 1e-6);
+  check("Cornish-Fisher VaR 99%", v.cornishFisher, fx.var.cornish_fisher, 1e-6);
+  const tb = document.querySelector("#results tbody");
+  rows.forEach((r) => { const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${r.name}</td><td>${r.d.toExponential(2)}</td><td>${r.tol.toExponential(0)}</td><td class="${r.ok ? "ok" : "bad"}">${r.ok ? "pass" : "FAIL"}</td>`; tb.appendChild(tr); });
+  const passed = rows.filter((r) => r.ok).length;
+  document.getElementById("summary").textContent = `${passed} of ${rows.length} checks pass`;
+  document.title = `${passed === rows.length ? "PASS" : "FAIL"} ${passed}/${rows.length}`;
+  window.__results = rows;
+})();
+</script>
+</body>
+</html>

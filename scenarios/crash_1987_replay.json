@@ -1,0 +1,8 @@
+{
+  "name": "1987 crash (replay)",
+  "kind": "historical",
+  "start": "1987-10-01",
+  "end": "1987-11-30",
+  "description": "Actual returns for October-November 1987.",
+  "tags": ["historical", "equity"]
+}

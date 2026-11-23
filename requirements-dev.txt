@@ -1,0 +1,5 @@
+pytest==9.2.0
+cvxpy==1.9.3
+clarabel==0.11.1
+scikit-learn==1.9.1
+pyarrow==26.0.1

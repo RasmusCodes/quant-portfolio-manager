@@ -1,0 +1,11 @@
+{
+  "name": "Sudden volatility spike (hypothetical)",
+  "kind": "volatility",
+  "vol_multiplier": 2.5,
+  "correlation_target": 0.8,
+  "correlation_weight": 0.5,
+  "factor_shocks": {"Mkt-RF": -0.10, "Rates": 0.03},
+  "horizon_months": 1,
+  "description": "Volatilities jump 2.5x and correlations move halfway toward 0.8 (diversification shrinks); equities fall 10% and Treasuries rally 3%. Reports one-month VaR and ES under the stressed covariance.",
+  "tags": ["hypothetical", "volatility", "correlation"]
+}

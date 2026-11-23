@@ -1,0 +1,8 @@
+{
+  "name": "2008-style credit crisis (replay)",
+  "kind": "historical",
+  "start": "2008-09-01",
+  "end": "2009-02-28",
+  "description": "Actual returns from September 2008 (Lehman) to February 2009, weights held fixed.",
+  "tags": ["historical", "credit", "equity"]
+}

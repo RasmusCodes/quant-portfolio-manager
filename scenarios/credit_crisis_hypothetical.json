@@ -1,0 +1,8 @@
+{
+  "name": "Credit crisis (hypothetical)",
+  "kind": "factor",
+  "factor_shocks": {"Mkt-RF": -0.40, "SMB": -0.05, "HML": -0.08, "Mom": 0.05, "RMW": 0.06, "Rates": 0.10},
+  "asset_shocks": {"Money": -0.55},
+  "description": "Equities fall 40%, financials 55%; quality holds up; Treasuries rally about 10% (10-year yield roughly -120 bp). Factor moves map to assets through betas estimated on the last ten years.",
+  "tags": ["hypothetical", "credit"]
+}

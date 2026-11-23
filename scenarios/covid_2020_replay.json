@@ -1,0 +1,8 @@
+{
+  "name": "2020-style liquidity shock (replay)",
+  "kind": "historical",
+  "start": "2020-02-01",
+  "end": "2020-03-31",
+  "description": "Actual returns for February-March 2020. Monthly data understate the intra-month fall (the S&P 500 lost 34% from 19 February to 23 March); run on daily data to see it.",
+  "tags": ["historical", "liquidity"]
+}
